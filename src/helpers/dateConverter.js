@@ -1,13 +1,15 @@
+export const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
 export function convertDateToDay(date) {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
   const dayOfWeekNumber = date.getDay();
-  return daysOfWeek[dayOfWeekNumber];
+  const formattedIndex = dayOfWeekNumber === 0 ? 6 : dayOfWeekNumber - 1;
+  return daysOfWeek[formattedIndex];
 }
