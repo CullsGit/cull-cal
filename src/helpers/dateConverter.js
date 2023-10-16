@@ -13,3 +13,9 @@ export function convertDateToDay(date) {
   const formattedIndex = dayOfWeekNumber === 0 ? 6 : dayOfWeekNumber - 1;
   return daysOfWeek[formattedIndex];
 }
+
+export function firstDayOfMonth(year, month) {
+  const dayOfWeekNumber = new Date(year, month, 1).getDay();
+  const formattedIndex = dayOfWeekNumber === 0 ? 6 : dayOfWeekNumber - 1;
+  return daysOfWeek[formattedIndex];
+}

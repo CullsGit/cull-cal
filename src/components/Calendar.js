@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { convertDateToDay, daysOfWeek } from "../helpers/dateConverter";
+import {
+  convertDateToDay,
+  daysOfWeek,
+  firstDayOfMonth,
+} from "../helpers/dateConverter";
 
 const Calendar = () => {
   const today = new Date();
@@ -8,8 +12,16 @@ const Calendar = () => {
   const [month, setMonth] = useState(today.getMonth());
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const startingDay = firstDayOfMonth(year, month);
 
+  const dayCells = [];
+  for (let day = 1; day <= daysInMonth; day++) {
+    dayCells.push(
+      <div key={day} className="day-cell">
+        {day}
+      </div>
+    );
+  }
   return (
     <>
       <table>
@@ -19,6 +31,7 @@ const Calendar = () => {
               <th key={index}>{day}</th>
             ))}
           </tr>
+          <tr>{dayCells}</tr>
         </thead>
       </table>
     </>
