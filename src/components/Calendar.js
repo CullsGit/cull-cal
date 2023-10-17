@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment/moment";
 import {
   convertDateToDay,
   daysOfWeek,
   firstDayOfMonth,
 } from "../helpers/dateConverter";
+
+const localizer = momentLocalizer(moment);
 
 const Calendar = () => {
   const today = new Date();
@@ -14,26 +19,14 @@ const Calendar = () => {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startingDay = firstDayOfMonth(year, month);
 
-  const dayCells = [];
-  for (let day = 1; day <= daysInMonth; day++) {
-    dayCells.push(
-      <div key={day} className="day-cell">
-        {day}
-      </div>
-    );
-  }
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            {daysOfWeek.map((day, index) => (
-              <th key={index}>{day}</th>
-            ))}
-          </tr>
-          <tr>{dayCells}</tr>
-        </thead>
-      </table>
+      <BigCalendar
+        localizer={localizer}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+      />
     </>
   );
 };
