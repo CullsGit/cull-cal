@@ -32,9 +32,16 @@ const Calendar = () => {
           `${year}-${month}-${day} 23:59`,
           "YYYY-M-D HH:mm"
         );
-        newActivities.push(
-          addActivityToEntireMonth(startDate, endDate, newActivityTitle)
+
+        const newActivity = addActivityToEntireMonth(
+          startDate,
+          endDate,
+          newActivityTitle
         );
+        newActivity.id = Math.floor(Math.random() * 16777215).toString(16);
+        newActivity.completed = false;
+
+        newActivities.push(newActivity);
       }
 
       setActivities([...activities, ...newActivities]);
@@ -57,6 +64,19 @@ const Calendar = () => {
         events={activities}
         startAccessor="start"
         endAccessor="end"
+        eventPropGetter={(event) => {
+          return {
+            style: {
+              backgroundColor: event.completed ? "green" : "red",
+            },
+          };
+        }}
+        onSelectEvent={(event) => {
+          const updatedActivities = activities.map((a) =>
+            a.id === event.id ? { ...a, completed: !a.completed } : a
+          );
+          setActivities(updatedActivities);
+        }}
         style={{ height: 500 }}
       />
     </>
