@@ -34,3 +34,17 @@ it("successfully adds an activity to every day of the month after user input", (
 
   expect(addedActivities.length).toBe(daysInCurrentMonth);
 });
+
+it("will not add whitespace to activities if user adds whitespace", () => {
+  render(<Calendar activities={[]} />);
+
+  const inputElement = screen.getByPlaceholderText("Enter Activity");
+  const addButton = screen.getByText("Add");
+
+  fireEvent.change(inputElement, { target: { value: "    " } });
+  fireEvent.click(addButton);
+
+  const addedActivities = screen.queryAllByText("    ");
+
+  expect(addedActivities).toHaveLength(0);
+});
