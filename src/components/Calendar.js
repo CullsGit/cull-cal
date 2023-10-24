@@ -56,6 +56,7 @@ const Calendar = () => {
           type="text"
           onChange={(event) => setNewActivityTitle(event.target.value)}
           placeholder="Enter Activity"
+          value={newActivityTitle}
         />
         <button onClick={handleAddActivity}>Add</button>
       </div>
